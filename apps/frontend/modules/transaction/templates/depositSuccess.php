@@ -14,6 +14,13 @@
       </tr>
     </tfoot>
     <tbody>
+      <?php
+        foreach ($form->getFormFieldSchema() as $name => $formField){
+          if ($formField->hasError()){
+            echo $name . ' ' . $formField->getError();
+          }
+        }
+      ?>
       <?php echo $form->renderGlobalErrors() ?>
       <tr>
         <th><?php echo $form['amount']->renderLabel() ?></th>

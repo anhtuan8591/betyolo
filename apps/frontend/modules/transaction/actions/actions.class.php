@@ -70,4 +70,28 @@ class transactionActions extends sfActions
       $this->redirect('transaction/edit?id='.$transaction->getId());
     }
   }
+
+  public function executeDeposit(sfWebRequest $request)
+  {
+    $this->form = new DepositForm();
+  }
+
+  public function executeDeposit2(sfWebRequest $request)
+  {
+    $this->form = new DepositForm();
+
+    if ($request->isMethod(sfRequest::POST)) {
+      $this->form->bind($request->getParameter('deposit'));
+      if ($this->form->isValid())
+      {
+        $this->form->save();
+      }
+      else
+      {
+        $this->redirect('transaction/deposit');
+      }
+    }
+
+    $this->setTemplate('deposit');
+  }
 }
