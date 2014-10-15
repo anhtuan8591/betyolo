@@ -26,4 +26,34 @@ class Transaction extends BaseTransaction
     400000 => 400000,
     500000 => 500000,
   );
+
+  public function deposit($hcoin = 0)
+  {
+    if ($this->getStatus() != 1 || $hcoin <= 0 ) {
+      return false;
+    }
+
+    $user_hcoin = $this->getUser()->getProfile()->getHcoin();
+
+    if (!$user_hcoin) {
+      $user_profile = new UserProfile();
+      $user_profile->setsfGuardUserId($this->getUser()->getId());
+      $user_profile->setHcoin($hcoin);
+    } else {
+      $user_profile = Doctrine_Core::getTable('UserProfile')->find($this->getUser()->getId());
+      $user_profile->setHcoin($user_hcoin + $hcoin);
+    }
+    $user_profile->save();
+
+    $this->setStatus(2);
+    $this->save();
+
+    return true;
+  }
+
+  public function cancelDeposit()
+  {
+    $this->setStatus(3);
+    $this->save();
+  }
 }

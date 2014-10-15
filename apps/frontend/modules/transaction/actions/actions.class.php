@@ -14,6 +14,7 @@ class transactionActions extends sfActions
   {
     $this->transactions = Doctrine_Core::getTable('Transaction')
       ->createQuery('a')
+      ->where('a.status = ?', 1)
       ->execute();
   }
 
