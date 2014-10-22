@@ -12,18 +12,21 @@
  */
 class BetyoloBet extends BaseBetyoloBet
 {
+  #statuses
+  const ON_GOING = 1;
+  const EXPIRED  = 2;
+
   public static $statuses = array(
-    1 => "on going",
-    2 => "exprie",
+    1 => "On going",
+    2 => "Expried",
   );
 
   public static $results = array(
     1 => "A win",
     2 => "B win",
-    3 => "None",
   );
-  
-  public function printStatus() 
+
+  public function printStatus()
   {
   	return self::$statuses[$this->getStatus()];
   }

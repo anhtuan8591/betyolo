@@ -13,4 +13,11 @@ require_once dirname(__FILE__).'/../lib/betyolo_categoryGeneratorHelper.class.ph
  */
 class betyolo_categoryActions extends autoBetyolo_categoryActions
 {
+  public function preExecute()
+  {
+    parent::preExecute();
+
+    $this->pager = $this->getPager();
+    $this->sort = $this->getSort();
+  }
 }
